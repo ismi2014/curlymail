@@ -45,7 +45,7 @@ var Template = function (template) {
 	this.compiled = getCompiledObj( this.src );
 };
 
-Template.prototype.render = function (data, remitent) {
+Template.prototype.render = function (data) {
 	var msg = {}, i;
 
 	// render regular fields
@@ -53,12 +53,6 @@ Template.prototype.render = function (data, remitent) {
 		msg[i] = this.compiled[i].render( data );
 	}
 
-  // add email to remitent
-	if (msg.from && remitent) {
-		msg.from = '"' + msg.from + '" <' + remitent + '>';
-	} else if (msg.from && !remitent) {
-    msg.from = '"' + msg.from + '"';
-  }
 	msg.attachment = [];
 	// render templates from attachments
 	this.attachments.forEach( function (att) {
@@ -203,7 +197,7 @@ curlymail.send = function (account, template, data, callback) {
 		template = new Template( template );
 	}
 
-	account.server.send( template.render( data || {}, account.src.user ), callback );
+	account.server.send( template.render( data ), callback );
 };
 
 
