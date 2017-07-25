@@ -55,10 +55,10 @@ Template.prototype.render = function (data, remitent) {
 
   // add email to remitent
 	if (msg.from && remitent) {
-		msg.from = '"' + msg.from + '" <' + remitent + '>';
+	  msg.from = '"' + msg.from + '" <' + remitent + '>';
 	} else if (msg.from && !remitent) {
-    msg.from = '"' + msg.from + '"';
-  }
+          msg.from = '"' + msg.from + '"';
+        }
 	msg.attachment = [];
 	// render templates from attachments
 	this.attachments.forEach( function (att) {
